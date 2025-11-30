@@ -713,9 +713,9 @@ footer {
 }
 
 /* Dark mode specific overrides for activity tags */
-[data-theme="dark"] .activity-tag {
-  background: #2a2a3a !important;
-  color: #a0a0ff !important;
+[data-theme="dark"] .activity-card .activity-tag {
+  background: #2a2a3a;
+  color: #a0a0ff;
 }
 
 /* Dark mode tooltip styling */
