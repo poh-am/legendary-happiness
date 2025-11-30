@@ -507,7 +507,8 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
       case "email":
         shareLink = `mailto:?subject=${encodeURIComponent("Check out this activity at Mergington High!")}&body=${encodeURIComponent(shareText + "\n\n" + shareUrl)}`;
-        window.location.href = shareLink;
+        // Use window.open for mailto to open email client without navigating away
+        window.open(shareLink, "_self");
         return;
     }
     
@@ -573,7 +574,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <span class="share-icon">f</span>
         </button>
         <button class="share-btn share-twitter" data-platform="twitter" data-activity="${escapedName}" data-description="${escapedDescription}" title="Share on X (Twitter)">
-          <span class="share-icon">𝕏</span>
+          <span class="share-icon">X</span>
         </button>
         <button class="share-btn share-whatsapp" data-platform="whatsapp" data-activity="${escapedName}" data-description="${escapedDescription}" title="Share on WhatsApp">
           <span class="share-icon">W</span>
