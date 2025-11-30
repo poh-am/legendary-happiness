@@ -478,6 +478,16 @@ document.addEventListener("DOMContentLoaded", () => {
     return `${baseUrl}?activity=${encodeURIComponent(activityName)}`;
   }
 
+  // Function to escape HTML special characters for safe attribute insertion
+  function escapeHtmlAttribute(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
   // Function to share activity on social media
   function shareActivity(platform, activityName, description) {
     const shareUrl = getShareUrl(activityName);
@@ -497,7 +507,8 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
       case "email":
         shareLink = `mailto:?subject=${encodeURIComponent("Check out this activity at Mergington High!")}&body=${encodeURIComponent(shareText + "\n\n" + shareUrl)}`;
-        break;
+        window.location.href = shareLink;
+        return;
     }
     
     if (shareLink) {
@@ -553,19 +564,21 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
 
     // Create social sharing buttons
+    const escapedName = escapeHtmlAttribute(name);
+    const escapedDescription = escapeHtmlAttribute(details.description);
     const shareButtonsHtml = `
       <div class="share-buttons">
         <span class="share-label">Share:</span>
-        <button class="share-btn share-facebook" data-platform="facebook" data-activity="${name}" data-description="${details.description.replace(/"/g, '&quot;')}" title="Share on Facebook">
+        <button class="share-btn share-facebook" data-platform="facebook" data-activity="${escapedName}" data-description="${escapedDescription}" title="Share on Facebook">
           <span class="share-icon">f</span>
         </button>
-        <button class="share-btn share-twitter" data-platform="twitter" data-activity="${name}" data-description="${details.description.replace(/"/g, '&quot;')}" title="Share on X (Twitter)">
+        <button class="share-btn share-twitter" data-platform="twitter" data-activity="${escapedName}" data-description="${escapedDescription}" title="Share on X (Twitter)">
           <span class="share-icon">𝕏</span>
         </button>
-        <button class="share-btn share-whatsapp" data-platform="whatsapp" data-activity="${name}" data-description="${details.description.replace(/"/g, '&quot;')}" title="Share on WhatsApp">
-          <span class="share-icon">✆</span>
+        <button class="share-btn share-whatsapp" data-platform="whatsapp" data-activity="${escapedName}" data-description="${escapedDescription}" title="Share on WhatsApp">
+          <span class="share-icon">W</span>
         </button>
-        <button class="share-btn share-email" data-platform="email" data-activity="${name}" data-description="${details.description.replace(/"/g, '&quot;')}" title="Share via Email">
+        <button class="share-btn share-email" data-platform="email" data-activity="${escapedName}" data-description="${escapedDescription}" title="Share via Email">
           <span class="share-icon">✉</span>
         </button>
       </div>
